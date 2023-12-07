@@ -14,10 +14,10 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-          "lol.koblizek.ExampleMod"
+			"lol.koblizek.StellarVoyageMod"
 		],
 		"client": [
-          "lol.koblizek.ExampleModClient"
+			"lol.koblizek.StellarVoyageClient"
 		]
 	},
 	"mixins": [
