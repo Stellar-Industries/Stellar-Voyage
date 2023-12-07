@@ -1,4 +1,4 @@
-package lol.koblizek;
+package lol.koblizek.stellarvoyage;
 
 import net.fabricmc.api.ClientModInitializer;
 

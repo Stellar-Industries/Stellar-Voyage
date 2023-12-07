@@ -1,4 +1,4 @@
-package lol.koblizek;
+package lol.koblizek.stellarvoyage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
