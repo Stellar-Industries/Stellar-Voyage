@@ -1,4 +1,4 @@
-package com.example;
+package lol.koblizek;
 
 import net.fabricmc.api.ClientModInitializer;
 
