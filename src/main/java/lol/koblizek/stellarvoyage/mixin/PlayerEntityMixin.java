@@ -1,5 +1,6 @@
 package lol.koblizek.stellarvoyage.mixin;
 
+import lol.koblizek.stellarvoyage.util.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -60,9 +61,9 @@ public abstract class PlayerEntityMixin {
 								newRand = RandomUtils.nextInt(0, COMMENTS.length);
 							else rand = newRand;
 							var text = Text.translatable(COMMENTS[newRand]).formatted(Formatting.RED);
-							player.getWorld().addParticle(new DustParticleEffect(new Vector3f(0f, 0f, 0f), 1.5f), player.getX(), player.getY() + 1.6, player.getZ(), 0.0D, 0.0D, 0.0D);
+							player.getWorld().addParticle(new DustParticleEffect(Utils.colorToVec(Color.gray), 2f), player.getX(), player.getY() + 1.6, player.getZ(), 0, 0.0D, 0.0D);
 							player.sendMessage(text, true);
-							player.damage(player.getWorld().getDamageSources().generic(), 1);
+							player.damage(player.getWorld().getDamageSources().generic(), 2);
 						}
 					}
 				});
