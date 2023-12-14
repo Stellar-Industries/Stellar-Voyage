@@ -1,6 +1,7 @@
 package lol.koblizek.stellarvoyage.block;
 
 import lol.koblizek.stellarvoyage.StellarVoyage;
+import lol.koblizek.stellarvoyage.item.ModItems;
 import lol.koblizek.stellarvoyage.util.References;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -21,7 +22,7 @@ public class ModBlocks implements References {
     public static final Block BLOOMERY_FIRED = registerBlock("bloomery_fired",
             new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).nonOpaque()));
     private static Block registerBlock(String name, Block block ) {
-        registerBlockItem(name, block);
+        ModItems.ITEMS.add(registerBlockItem(name, block));
         return Registry.register(Registries.BLOCK, new Identifier(MOD_ID, name), block);
     }
     private static Item registerBlockItem(String name, Block block) {

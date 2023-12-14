@@ -9,7 +9,11 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ModItems implements References {
+    public static final List<Item> ITEMS = new ArrayList<>();
     public static final Item ALUMINIUM_PLATE = registerItem("aluminium_plate", new Item(new FabricItemSettings()));
     public static final Item ALUMINIUM_INGOT = registerItem("aluminium_ingot", new Item(new FabricItemSettings()));
     public static final Item PEBBLE_AXE = registerItem("pebble_axe", new AxeItem(ToolMaterials.WOOD, 6.0F, -3.2F, new Item.Settings()));
@@ -19,6 +23,7 @@ public class ModItems implements References {
     public static final Item GRASS_FIBER = registerItem("grass_fiber", new Item(new FabricItemSettings()));
 
     private static Item registerItem(String name, Item item) {
+        ITEMS.add(item);
         return Registry.register(Registries.ITEM, new Identifier(MOD_ID, name), item);
     }
 
