@@ -22,7 +22,9 @@ public class ModItemGroups {
                         entries.add(ModBlocks.BLOOMERY_UNFIRED);
                         entries.add(ModItems.PEBBLE_AXE);
                         entries.add(ModItems.PEBBLE_PICKAXE);
-
+                        entries.add(ModItems.WOODEN_BAT);
+                        entries.add(ModItems.FLINT_KNIFE);
+                        entries.add(ModItems.GRASS_FIBER);
                     }).build());
     public static void registerItemGroups() {
 
