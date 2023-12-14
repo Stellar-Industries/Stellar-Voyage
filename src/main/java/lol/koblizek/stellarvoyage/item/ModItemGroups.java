@@ -21,6 +21,7 @@ public class ModItemGroups {
                         entries.add(ModBlocks.BLOOMERY_FIRED);
                         entries.add(ModBlocks.BLOOMERY_UNFIRED);
 
+
                     }).build());
     public static void registerItemGroups() {
 
