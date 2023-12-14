@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 public interface References {
     Logger LOGGER = LoggerFactory.getLogger("StellarVoyage");
     String MOD_ID = "stellarvoyage";
+    String MOD_VERSION = "1.0.0";
 
     default Logger getLogger(String name) {
         return LoggerFactory.getLogger(name);
