@@ -15,6 +15,10 @@ public class ModBlocks {
 
     public static final Block BAUXITE_ORE = registerBlock("bauxite",
             new Block(FabricBlockSettings.copyOf(Blocks.IRON_ORE)));
+    public static final Block BLOOMERY_UNFIRED = registerBlock("bloomery_unfired",
+            new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK)));
+    public static final Block BLOOMERY_FIRED = registerBlock("bloomery_fired",
+            new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK)));
     private static Block registerBlock(String name, Block block ) {
         registerBlockItem(name, block);
         return Registry.register(Registries.BLOCK, new Identifier(StellarVoyage.MOD_ID, name), block);

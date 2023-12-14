@@ -18,6 +18,8 @@ public class ModItemGroups {
                         entries.add(ModItems.ALUMINIUM_INGOT);
                         entries.add(ModItems.ALUMINIUM_PLATE);
                         entries.add(ModBlocks.BAUXITE_ORE);
+                        entries.add(ModBlocks.BLOOMERY_FIRED);
+                        entries.add(ModBlocks.BLOOMERY_UNFIRED);
 
                     }).build());
     public static void registerItemGroups() {
