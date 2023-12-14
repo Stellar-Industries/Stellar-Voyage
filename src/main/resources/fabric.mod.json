@@ -10,20 +10,20 @@
 		"Motulok"
 	],
 	"license": "MIT",
-	"icon": "assets/modid/icon.png",
+	"icon": "assets/stellarvoyage/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-          "lol.koblizek.ExampleMod"
+			"lol.koblizek.stellarvoyage.StellarVoyage"
 		],
 		"client": [
-          "lol.koblizek.ExampleModClient"
+			"lol.koblizek.stellarvoyage.StellarVoyageClient"
 		]
 	},
 	"mixins": [
-		"modid.mixins.json",
+		"stellarvoyage.mixins.json",
 		{
-			"config": "modid.client.mixins.json",
+			"config": "stellarvoyage.client.mixins.json",
 			"environment": "client"
 		}
 	],
@@ -32,8 +32,5 @@
 		"minecraft": "~1.20.3",
 		"java": ">=17",
 		"fabric-api": "*"
-	},
-	"suggests": {
-		"another-mod": "*"
 	}
 }

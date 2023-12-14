@@ -1,4 +1,4 @@
-package lol.koblizek.mixin;
+package lol.koblizek.stellarvoyage.mixin;
 
 import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;

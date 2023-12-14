@@ -1,6 +1,6 @@
-package lol.koblizek.item;
+package lol.koblizek.stellarvoyage.item;
 
-import lol.koblizek.ExampleMod;
+import lol.koblizek.stellarvoyage.StellarVoyage;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.minecraft.item.Item;
@@ -18,7 +18,7 @@ public class ModItems {
         entries.add(ALUMINIUM_PLATE);
     }
     private static Item registerItem(String name, Item item) {
-        return Registry.register(Registries.ITEM, new Identifier(ExampleMod.MOD_ID, name), item);
+        return Registry.register(Registries.ITEM, new Identifier(StellarVoyage.MOD_ID, name), item);
     }
     public static void registerModItems() {
     }

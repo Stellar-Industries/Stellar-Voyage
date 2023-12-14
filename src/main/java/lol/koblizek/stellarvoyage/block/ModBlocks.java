@@ -1,6 +1,6 @@
-package lol.koblizek.block;
+package lol.koblizek.stellarvoyage.block;
 
-import lol.koblizek.ExampleMod;
+import lol.koblizek.stellarvoyage.StellarVoyage;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
@@ -17,10 +17,10 @@ public class ModBlocks {
             new Block(FabricBlockSettings.copyOf(Blocks.IRON_ORE)));
     private static Block registerBlock(String name, Block block ) {
         registerBlockItem(name, block);
-        return Registry.register(Registries.BLOCK, new Identifier(ExampleMod.MOD_ID, name), block);
+        return Registry.register(Registries.BLOCK, new Identifier(StellarVoyage.MOD_ID, name), block);
     }
     private static Item registerBlockItem(String name, Block block) {
-        return Registry.register(Registries.ITEM, new Identifier(ExampleMod.MOD_ID, name),
+        return Registry.register(Registries.ITEM, new Identifier(StellarVoyage.MOD_ID, name),
             new BlockItem(block,new FabricItemSettings()));
     }
     public static void registerModBlock() {

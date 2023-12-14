@@ -1,9 +1,9 @@
 {
 	"required": true,
-	"package": "lol.koblizek.mixin.client",
+	"package": "lol.koblizek.stellarvoyage.mixin",
 	"compatibilityLevel": "JAVA_17",
-	"client": [
-      "ExampleClientMixin"
+	"mixins": [
+      "ExampleMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

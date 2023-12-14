@@ -1,4 +1,4 @@
-package lol.koblizek.mixin.client;
+package lol.koblizek.stellarvoyage.mixin.client;
 
 import net.minecraft.client.MinecraftClient;
 import org.spongepowered.asm.mixin.Mixin;
