@@ -13,11 +13,8 @@ public class ModItems {
 
 
     public static final Item ALUMINIUM_INGOT = registerItem("aluminium_ingot", new Item(new FabricItemSettings()));
-    private static void addToItemGroup(FabricItemGroupEntries entries) {
-        entries.add(ALUMINIUM_INGOT);
-        entries.add(ALUMINIUM_PLATE);
-    }
     private static Item registerItem(String name, Item item) {
+
         return Registry.register(Registries.ITEM, new Identifier(StellarVoyage.MOD_ID, name), item);
     }
     public static void registerModItems() {
