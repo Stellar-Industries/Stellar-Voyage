@@ -20,7 +20,8 @@ public class ModItemGroups {
                         entries.add(ModBlocks.BAUXITE_ORE);
                         entries.add(ModBlocks.BLOOMERY_FIRED);
                         entries.add(ModBlocks.BLOOMERY_UNFIRED);
-
+                        entries.add(ModItems.PEBBLE_AXE);
+                        entries.add(ModItems.PEBBLE_PICKAXE);
 
                     }).build());
     public static void registerItemGroups() {
