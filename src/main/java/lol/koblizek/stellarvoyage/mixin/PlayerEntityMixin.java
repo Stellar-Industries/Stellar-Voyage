@@ -1,5 +1,6 @@
 package lol.koblizek.stellarvoyage.mixin;
 
+import lol.koblizek.stellarvoyage.util.Randomizer;
 import lol.koblizek.stellarvoyage.util.Utils;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.minecraft.block.Block;
@@ -44,7 +45,7 @@ public abstract class PlayerEntityMixin {
 	};
 
 	private int timer = 0;
-	private int rand = 0;
+	private Randomizer rand;
 
 	@Inject(at = @At("HEAD"), method = "tick")
 	public void tick(CallbackInfo ci) {
@@ -59,11 +60,9 @@ public abstract class PlayerEntityMixin {
 					Block block = blockState.getBlock();
 					for (Block material : BURNING_MATERIALS) {
 						if (material.equals(block)) {
-							int newRand = RandomUtils.nextInt(0, COMMENTS.length);
-							if (newRand == rand)
-								newRand = RandomUtils.nextInt(0, COMMENTS.length);
-							else rand = newRand;
-							var text = Text.translatable(COMMENTS[newRand]).formatted(Formatting.RED);
+							if (rand == null)
+								rand = new Randomizer(COMMENTS);
+							var text = Text.translatable(rand.get()).formatted(Formatting.RED);
 							player.getWorld().addParticle(new DustParticleEffect(Utils.colorToVec(Color.gray), 2f), player.getX(), player.getY() + 1.6, player.getZ(), 0, 0.0D, 0.0D);
 							player.sendMessage(text, true);
 							player.damage(player.getWorld().getDamageSources().generic(), 2);

@@ -23,7 +23,7 @@ public class StellarVoyageClient implements ClientModInitializer, References {
 	}
 
 	public void onPlayReady(ClientPlayNetworkHandler handler, PacketSender sender, MinecraftClient client) {
-		client.player.sendMessage(Text.literal("K").formatted(Formatting.DARK_PURPLE, Formatting.OBFUSCATED)
+		client.player.sendMessage(Text.empty().append(Text.literal("K").formatted(Formatting.DARK_PURPLE, Formatting.OBFUSCATED))
 				.append(Text.literal("Welcome long lost adventurer, the world welcomes you").formatted(Formatting.GOLD))
 				.append(Text.literal("K").formatted(Formatting.OBFUSCATED, Formatting.DARK_PURPLE)));
 	}

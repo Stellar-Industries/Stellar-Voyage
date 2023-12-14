@@ -11,6 +11,8 @@ import net.minecraft.util.Identifier;
 public class ModItems {
     public static final Item ALUMINIUM_PLATE = registerItem("aluminium_plate", new Item(new FabricItemSettings()));
     public static final Item ALUMINIUM_INGOT = registerItem("aluminium_ingot", new Item(new FabricItemSettings()));
+    public static final Item PEBBLE_AXE = registerItem("pebble_axe", new Item(new FabricItemSettings().maxDamage(3)));
+    public static final Item PEBBLE_PICKAXE = registerItem("pebble_pickaxe", new Item(new FabricItemSettings().maxDamage(2)));
 
 
     private static Item registerItem(String name, Item item) {
