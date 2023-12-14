@@ -7,6 +7,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Items;
 import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
@@ -32,11 +33,14 @@ import java.util.Arrays;
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin {
 
+	@Shadow public abstract void playSound(SoundEvent sound, float volume, float pitch);
+
 	@Unique
 	private static final Block[] BURNING_MATERIALS = {
 			Blocks.COAL_ORE
 	};
 
+	@Unique
 	private static final String[] COMMENTS = {
 			"comment.stellarvoyage.dying",
 			"comment.stellarvoyage.dying2",
@@ -45,27 +49,43 @@ public abstract class PlayerEntityMixin {
 	};
 
 	private int timer = 0;
+	private int diseaseTimer = 0;
 	private Randomizer rand;
+
+	@Unique
+	private void dustHurtPlayer(PlayerEntity player) {
+		if (rand == null)
+			rand = new Randomizer(COMMENTS);
+		var text = Text.translatable(rand.get()).formatted(Formatting.RED);
+		player.getWorld().addParticle(new DustParticleEffect(Utils.colorToVec(Color.gray), 2f), player.getX(), player.getY() + 1.6, player.getZ(), 0, 0.0D, 0.0D);
+		player.sendMessage(text, true);
+		player.damage(player.getWorld().getDamageSources().generic(), 2);
+	}
 
 	@Inject(at = @At("HEAD"), method = "tick")
 	public void tick(CallbackInfo ci) {
 		PlayerEntity player = (PlayerEntity) (Object) this;
 		if (!player.isCreative()) {
 			var box = player.getWorld().getStatesInBox(new Box(player.getBlockPos().add(-2, -2, -2).toCenterPos(), player.getBlockPos().add(2, 2, 2).toCenterPos())).toList();
-			if (!box.isEmpty())
-				timer++;
-			if (timer == 20) {
+
+			if (!box.isEmpty() || player.getInventory().contains(Items.COAL.getDefaultStack())) {
+				if (diseaseTimer != 400) {
+					diseaseTimer++;
+				} else {
+					timer++;
+				}
+			}
+
+			if (diseaseTimer == 400 && timer == 20) {
 				timer = 0;
+				if (player.getInventory().contains(Items.COAL.getDefaultStack())) {
+					dustHurtPlayer(player);
+				}
 				box.forEach((blockState) -> {
 					Block block = blockState.getBlock();
 					for (Block material : BURNING_MATERIALS) {
 						if (material.equals(block)) {
-							if (rand == null)
-								rand = new Randomizer(COMMENTS);
-							var text = Text.translatable(rand.get()).formatted(Formatting.RED);
-							player.getWorld().addParticle(new DustParticleEffect(Utils.colorToVec(Color.gray), 2f), player.getX(), player.getY() + 1.6, player.getZ(), 0, 0.0D, 0.0D);
-							player.sendMessage(text, true);
-							player.damage(player.getWorld().getDamageSources().generic(), 2);
+							dustHurtPlayer(player);
 						}
 					}
 				});
