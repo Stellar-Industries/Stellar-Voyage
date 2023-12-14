@@ -5,5 +5,10 @@
 
   "block.stellarvoyage.bauxite": "Bauxite",
 
-  "itemgroup.stellarvoyage": "Stellar Voyage"
+  "itemgroup.stellarvoyage": "Stellar Voyage",
+
+  "comment.stellarvoyage.dying": "My lungs are burning",
+  "comment.stellarvoyage.dying2": "I should get away from here asap...",
+  "comment.stellarvoyage.dying3": "Some sort of gas is coming out of the ground...",
+  "comment.stellarvoyage.dying4": "Mask would be useful right now..."
 }

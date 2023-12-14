@@ -10,9 +10,9 @@ import net.minecraft.util.Identifier;
 
 public class ModItems {
     public static final Item ALUMINIUM_PLATE = registerItem("aluminium_plate", new Item(new FabricItemSettings()));
-
-
     public static final Item ALUMINIUM_INGOT = registerItem("aluminium_ingot", new Item(new FabricItemSettings()));
+
+
     private static Item registerItem(String name, Item item) {
 
         return Registry.register(Registries.ITEM, new Identifier(StellarVoyage.MOD_ID, name), item);
