@@ -9,8 +9,8 @@ import net.fabricmc.api.ModInitializer;
 public class StellarVoyage implements ModInitializer, References {
 	@Override
 	public void onInitialize() {
-		ModItemGroups.registerItemGroups();
 		ModBlocks.registerModBlock();
 		ModItems.registerModItems();
+		ModItemGroups.registerItemGroups();
 	}
 }
