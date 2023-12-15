@@ -1,0 +1,53 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"LeftDisappear": {
+			"loop": true,
+			"bones": {
+				"leftHole": {
+					"rotation": {
+						"vector": [0, -22.5, 0]
+					}
+				}
+			}
+		},
+		"RightDisappear": {
+			"loop": true,
+			"bones": {
+				"rightHole": {
+					"rotation": {
+						"vector": [0, 22.5, 0]
+					}
+				}
+			}
+		},
+		"Burn": {
+			"loop": true,
+			"animation_length": 75.91667,
+			"bones": {
+				"bone": {
+					"relative_to": {
+						"rotation": "entity"
+					},
+					"rotation": {
+						"vector": [0, 0, 0]
+					}
+				}
+			},
+			"particle_effects": {
+				"0.0": {
+					"effect": "burning"
+				}
+			}
+		},
+		"Smoke": {
+			"loop": true,
+			"particle_effects": {
+				"0.0": {
+					"effect": "smoke"
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}
