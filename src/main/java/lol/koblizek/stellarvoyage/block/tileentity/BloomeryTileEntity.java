@@ -8,22 +8,22 @@ import software.bernie.geckolib.model.DefaultedBlockGeoModel;
 import software.bernie.geckolib.model.GeoModel;
 
 public class BloomeryTileEntity extends GeoModel<BloomeryTileEntityGeoBlock> implements References {
-    private static final Identifier MODEL = new Identifier(MOD_ID, "geo/yourmodel.geo.json");
-    private static final Identifier TEXTURE = new Identifier(MOD_ID, "textures/<modeltype>/yourtexture.png");
-    private static final Identifier ANIMATION = new Identifier(MOD_ID, "animations/youranimation.animation.json");
+    private static final Identifier MODEL = new Identifier(MOD_ID, "geo/bloomery_fired.geo.json");
+    private static final Identifier TEXTURE = new Identifier(MOD_ID, "textures/block/bloomery_fired.png");
+    private static final Identifier ANIMATION = new Identifier(MOD_ID, "animations/bloomery.animation.json");
     @Override
     public Identifier getModelResource(BloomeryTileEntityGeoBlock animatable) {
-        return "null";
+        return MODEL;
     }
 
     @Override
     public Identifier getTextureResource(BloomeryTileEntityGeoBlock animatable) {
-        return null;
+        return TEXTURE;
     }
 
     @Override
     public Identifier getAnimationResource(BloomeryTileEntityGeoBlock animatable) {
-        return null;
+        return ANIMATION;
     }
 
     @Override

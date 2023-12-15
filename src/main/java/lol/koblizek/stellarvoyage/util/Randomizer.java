@@ -10,9 +10,10 @@ public class Randomizer {
     }
 
     public String get() {
-        if (prev == null)
-            return Utils.random(data);
-        else {
+        if (prev == null) {
+            prev = Utils.random(data);
+            return prev;
+        } else {
             String r = prev;
             while (r.equals(prev))
                 r = Utils.random(data);
