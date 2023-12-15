@@ -8,14 +8,7 @@ import lol.koblizek.stellarvoyage.worldgen.BiomeModifiers;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
-import net.minecraft.entity.SpawnGroup;
 import net.minecraft.util.Identifier;
-import net.minecraft.world.biome.SpawnSettings;
-import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.carver.ConfiguredCarvers;
-import net.minecraft.world.gen.feature.PlacedFeatures;
-
-import java.util.function.BiPredicate;
 
 public class StellarVoyage implements ModInitializer, References {
 	@Override

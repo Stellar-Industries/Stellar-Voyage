@@ -35,7 +35,8 @@ public abstract class PlayerEntityMixin {
 
 	@Unique
 	private static final Block[] BURNING_MATERIALS = {
-			Blocks.COAL_ORE
+			Blocks.COAL_ORE,
+			Blocks.COAL_BLOCK,
 	};
 
 	@Unique
@@ -70,7 +71,7 @@ public abstract class PlayerEntityMixin {
 	@Inject(at = @At("HEAD"), method = "tick")
 	public void tick(CallbackInfo ci) {
 		PlayerEntity player = (PlayerEntity) (Object) this;
-		if (!player.isCreative()) {
+		if (!player.isCreative() && !player.isSpectator()) {
 			var box = player.getWorld().getStatesInBox(new Box(player.getBlockPos().add(-2, -2, -2).toCenterPos(), player.getBlockPos().add(2, 2, 2).toCenterPos())).toList();
 
 			if (!box.isEmpty() || player.getInventory().contains(Items.COAL.getDefaultStack())) {
