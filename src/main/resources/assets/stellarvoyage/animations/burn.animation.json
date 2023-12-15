@@ -16,7 +16,7 @@
 			},
 			"particle_effects": {
 				"0.0": {
-					"effect": "burning"
+					"effect": "stellarvoyage:animations/burning"
 				}
 			}
 		}
