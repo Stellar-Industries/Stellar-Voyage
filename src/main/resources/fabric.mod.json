@@ -21,11 +21,7 @@
 		]
 	},
 	"mixins": [
-		"stellarvoyage.mixins.json",
-		{
-			"config": "stellarvoyage.client.mixins.json",
-			"environment": "client"
-		}
+		"stellarvoyage.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.15.0",

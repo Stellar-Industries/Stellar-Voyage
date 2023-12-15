@@ -1,28 +1,29 @@
 package lol.koblizek.stellarvoyage;
 
+import lol.koblizek.stellarvoyage.block.tileentity.BloomeryTileEntity;
+import lol.koblizek.stellarvoyage.block.tileentity.ModTileEntities;
+import lol.koblizek.stellarvoyage.block.tileentity.bloomery.BloomeryTileEntityRenderer;
 import lol.koblizek.stellarvoyage.item.ItemCallbacks;
 import lol.koblizek.stellarvoyage.util.References;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.text.Style;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
-import java.text.Normalizer;
 import java.util.Random;
 
 public class StellarVoyageClient implements ClientModInitializer, References {
 	@Override
 	public void onInitializeClient() {
 		ItemCallbacks.register();
+		BlockEntityRendererFactories.register(ModTileEntities.BLOOMERY_ENTITY_BLOCK, new BloomeryTileEntityRenderer());
 		ClientLifecycleEvents.CLIENT_STARTED.register(this::onClientStarted);
 		ClientPlayConnectionEvents.JOIN.register(this::onPlayReady);
 	}

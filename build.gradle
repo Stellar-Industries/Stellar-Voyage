@@ -23,12 +23,10 @@ repositories {
 }
 
 loom {
-    splitEnvironmentSourceSets()
 
 	mods {
 		"stellarvoyage" {
-			sourceSet sourceSets.main
-			sourceSet sourceSets.client
+
 		}
 	}
 
