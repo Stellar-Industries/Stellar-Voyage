@@ -2,8 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "group": "equipment",
   "pattern": [
-    "F#",
-    "FW"
+    "F#F",
+    "AWA",
+    "AWA"
   ],
   "key": {
     "W": {
@@ -14,10 +15,13 @@
     },
     "#": {
       "item": "stellarvoyage:grass_fiber"
+    },
+    "A": {
+      "item": "minecraft:air"
     }
   },
   "result": {
-    "item": "stellarvoyage:pebble_axe",
+    "item": "stellarvoyage:pebble_pickaxe",
     "count": 1
   }
 }

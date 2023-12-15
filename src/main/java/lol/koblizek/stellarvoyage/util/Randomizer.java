@@ -1,5 +1,6 @@
 package lol.koblizek.stellarvoyage.util;
 
+
 public class Randomizer {
     private final String[] data;
     private String prev;
