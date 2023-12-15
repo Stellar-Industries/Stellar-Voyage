@@ -1,27 +1,23 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "equipment",
-  "pattern": [
-    "F#",
-    "AW",
-    "AW"
-  ],
+  "category": "equipment",
   "key": {
-    "W": {
+    "#": {
       "item": "minecraft:stick"
     },
-    "F": {
+    "X": {
       "item": "minecraft:flint"
     },
-    "#": {
+    "W": {
       "item": "stellarvoyage:grass_fiber"
-    },
-    "A": {
-      "item": "minecraft:air"
     }
   },
+  "pattern": [
+    "XW",
+    " #",
+    " #"
+  ],
   "result": {
-    "item": "stellarvoyage:pebble_hoe",
-    "count": 1
+    "item": "stellarvoyage:pebble_hoe"
   }
 }
