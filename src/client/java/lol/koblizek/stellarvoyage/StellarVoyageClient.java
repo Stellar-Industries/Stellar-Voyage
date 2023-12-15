@@ -37,5 +37,6 @@ public class StellarVoyageClient implements ClientModInitializer, References {
 		client.player.sendMessage(Text.empty().append(Text.literal("K").formatted(Formatting.DARK_PURPLE, Formatting.OBFUSCATED))
 				.append(Text.literal("Welcome long lost adventurer, the world welcomes you").formatted(Formatting.GOLD))
 				.append(Text.literal("K").formatted(Formatting.OBFUSCATED, Formatting.DARK_PURPLE)));
+		client.player.sendMessage(Text.literal("Get started by obtaining flint!").formatted(Formatting.GREEN));
 	}
 }

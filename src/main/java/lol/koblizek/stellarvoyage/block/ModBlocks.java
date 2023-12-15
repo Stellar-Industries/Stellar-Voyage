@@ -22,6 +22,8 @@ public class ModBlocks implements References {
             new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).nonOpaque()));
     public static final Block BLOOMERY_FIRED = registerBlock("bloomery_fired",
             new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).nonOpaque()));
+    public static final Block MUD_MIXTURE = registerBlock("mud_mixture",
+            new MudMixtureBlock());
     private static Block registerBlock(String name, Block block ) {
         ModItems.ITEMS.add(registerBlockItem(name, block));
         return Registry.register(Registries.BLOCK, new Identifier(MOD_ID, name), block);
