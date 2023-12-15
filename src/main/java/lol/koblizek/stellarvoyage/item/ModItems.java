@@ -19,7 +19,9 @@ public class ModItems implements References {
     public static final Item PEBBLE_AXE = registerItem("pebble_axe", new AxeItem(ToolMaterials.WOOD, 6.0F, -3.2F, new Item.Settings()));
     public static final Item PEBBLE_PICKAXE = registerItem("pebble_pickaxe", new PickaxeItem(ToolMaterials.WOOD, 1, -2.8F, new Item.Settings()));
     public static final Item WOODEN_BAT = registerItem("wooden_bat", new SwordItem(ToolMaterials.WOOD, 3, -2.4F, new Item.Settings()));
-    public static final Item FLINT_KNIFE = registerItem("flint_knife", new SwordItem(ToolMaterials.STONE, 4, -2F, new Item.Settings()));
+    public static final Item PEBBLE_SHOVEL = registerItem("pebble_shovel", new ShovelItem(ToolMaterials.WOOD, 1, -2F, new Item.Settings()));
+    public static final Item PEBBLE_HOE = registerItem("pebble_hoe", new HoeItem(ToolMaterials.WOOD, 1, -2F, new Item.Settings()));
+    public static final Item FLINT_KNIFE = registerItem("flint_knife", new SwordItem(ToolMaterials.WOOD, 4, -2F, new Item.Settings()));
     public static final Item GRASS_FIBER = registerItem("grass_fiber", new Item(new FabricItemSettings()));
 
     private static Item registerItem(String name, Item item) {

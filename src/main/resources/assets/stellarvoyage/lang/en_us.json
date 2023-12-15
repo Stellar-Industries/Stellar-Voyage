@@ -2,7 +2,10 @@
   "item.stellarvoyage.aluminium_ingot": "Aluminium Ingot",
   "item.stellarvoyage.aluminium_plate": "Aluminium Plate",
   "item.stellarvoyage.bauxite": "Bauxite",
-  "item.stellarvoyage.pebble_axe": "Pebble Axe",
+  "item.stellarvoyage.pebble_axe": "Flint Axe",
+  "item.stellarvoyage.pebble_shovel": "Flint Shovel",
+  "item.stellarvoyage.pebble_pickaxe": "Flint Pickaxe",
+  "item.stellarvoyage.pebble_hoe": "Flint Hoe",
   "item.stellarvoyage.wooden_bat": "Wooden Bat",
   "item.stellarvoyage.flint_knife": "Flint Knife",
   "item.stellarvoyage.grass_fiber": "Grass Fiber",
@@ -14,7 +17,8 @@
   "itemgroup.stellarvoyage": "Stellar Voyage",
 
   "comment.stellarvoyage.dying": "My lungs are burning",
-  "comment.stellarvoyage.dying2": "I should get away from here asap...",
+  "comment.stellarvoyage.dying2": "I should get away from here fast...",
   "comment.stellarvoyage.dying3": "Some sort of gas is coming out of the ground...",
-  "comment.stellarvoyage.dying4": "Mask would be useful right now..."
+  "comment.stellarvoyage.dying4": "Mask would be useful right now...",
+  "comment.stellarvoyage.dying5": "I feel so dizzy all of a sudden..."
 }
