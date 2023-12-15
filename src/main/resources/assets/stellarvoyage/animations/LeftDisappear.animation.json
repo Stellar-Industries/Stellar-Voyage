@@ -1,0 +1,15 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"LeftDisappear": {
+			"loop": true,
+			"bones": {
+				"leftHole": {
+					"rotation": {
+						"vector": [0, -22.5, 0]
+					}
+				}
+			}
+		}
+	}
+}
