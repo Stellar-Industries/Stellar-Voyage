@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "equipment",
+  "pattern": [
+    "FS",
+    "FW",
+    " W"
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:stick"
+    },
+    "F": {
+      "item": "minecraft:flint"
+    },
+    "S": {
+      "item": "stellarvoyage:plant_fiber"
+    }
+  },
+  "result": {
+    "item": "stellarvoyage:pebble_axe",
+    "count": 1
+  }
+}
