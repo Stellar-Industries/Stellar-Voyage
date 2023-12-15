@@ -11,6 +11,7 @@ import net.minecraft.item.Items;
 import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.Colors;
@@ -32,6 +33,8 @@ import java.util.Arrays;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin {
+
+	@Shadow public abstract void playSound(SoundEvent event, SoundCategory category, float volume, float pitch);
 
 	@Unique
 	private static final Block[] BURNING_MATERIALS = {
