@@ -33,8 +33,6 @@ import java.util.Arrays;
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin {
 
-	@Shadow public abstract void playSound(SoundEvent sound, float volume, float pitch);
-
 	@Unique
 	private static final Block[] BURNING_MATERIALS = {
 			Blocks.COAL_ORE
@@ -48,10 +46,17 @@ public abstract class PlayerEntityMixin {
 			"comment.stellarvoyage.dying4"
 	};
 
+	@Unique
 	private int timer = 0;
+	@Unique
 	private int diseaseTimer = 0;
+	@Unique
 	private Randomizer rand;
 
+	/**
+	 * Hurts the player simulating coal dust disease
+	 * @param player The player to hurt
+	 */
 	@Unique
 	private void dustHurtPlayer(PlayerEntity player) {
 		if (rand == null)

@@ -10,11 +10,19 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Unique;
 
 import java.util.List;
 
 @Mixin(Item.class)
 public abstract class ItemMixin {
+
+    @Unique
+    private static final Item[] DUST_PRODUCING_ITEMS = new Item[] {
+            Items.COAL,
+            Items.CHARCOAL,
+            Items.COAL_BLOCK,
+    };
 
     /**
      * @author KoblizekXD
@@ -23,8 +31,10 @@ public abstract class ItemMixin {
     @Overwrite
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         Item item = stack.getItem();
-        if (item == Items.COAL) {
-            tooltip.add(Text.literal("[Coal Dust]").formatted(Formatting.GRAY));
+        for (Item items : DUST_PRODUCING_ITEMS) {
+            if (item == items) {
+                tooltip.add(Text.literal("[Coal Dust]").formatted(Formatting.GRAY));
+            }
         }
     }
 }
