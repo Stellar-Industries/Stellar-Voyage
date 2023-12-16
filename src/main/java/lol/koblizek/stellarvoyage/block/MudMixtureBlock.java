@@ -46,6 +46,6 @@ public class MudMixtureBlock extends Block {
 //        world.breakBlock(pos, true);
 //        world.spawnEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(),
 //                new ItemStack(Items.BRICK, 1)));
-        world.setBlockState(pos, Blocks.DIRT.getDefaultState()); // TODO: set proper replacement
+        world.setBlockState(pos, Blocks.MUD.getDefaultState()); // TODO: set proper replacement
     }
 }

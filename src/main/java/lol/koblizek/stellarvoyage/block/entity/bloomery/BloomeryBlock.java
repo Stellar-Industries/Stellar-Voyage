@@ -6,9 +6,11 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
+import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.StructureSpawns;
 import org.jetbrains.annotations.Nullable;
 
 public class BloomeryBlock extends BlockWithEntity {
@@ -38,12 +40,10 @@ public class BloomeryBlock extends BlockWithEntity {
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return switch (state.get(FACING)) {
-            case NORTH -> Block.createCuboidShape(0, 0, 0, 32, 48, 32);
-            case SOUTH -> Block.createCuboidShape(-16, 0, 0, 16, 16, 16);
-            case WEST -> Block.createCuboidShape(0, 0, -16, 16, 16, 16);
-            default -> Block.createCuboidShape(0, 0, 0, 16, 16, 32);
+            default -> Block.createCuboidShape(-16, 0, -16, 16, 32, 16);
         };
     }
+
 
     @Override
     public BlockRenderType getRenderType(BlockState state) {
