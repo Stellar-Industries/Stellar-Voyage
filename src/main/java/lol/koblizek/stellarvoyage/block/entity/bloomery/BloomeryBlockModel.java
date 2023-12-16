@@ -7,7 +7,7 @@ import software.bernie.geckolib.model.GeoModel;
 public class BloomeryBlockModel extends GeoModel<BloomeryBlockEntity> implements References {
     @Override
     public Identifier getModelResource(BloomeryBlockEntity animatable) {
-        return new Identifier(MOD_ID, "geo/bloomery_fired.geo.json");
+        return new Identifier(MOD_ID, "geo/bloomery.geo.json");
     }
 
     @Override
