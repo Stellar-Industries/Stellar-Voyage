@@ -17,6 +17,6 @@ public class ModBlockEntities implements References {
 
 
     public static void register() {
-        BLOOMERY = Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(MOD_ID, "bloomery_fired"), FabricBlockEntityTypeBuilder.create(BloomeryBlockEntity::new,ModBlocks.BLOOMERY).build());
+        BLOOMERY = Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(MOD_ID, "bloomery_fired"), FabricBlockEntityTypeBuilder.create(BloomeryBlockEntity::new, ModBlocks.BLOOMERY).build());
     }
 }

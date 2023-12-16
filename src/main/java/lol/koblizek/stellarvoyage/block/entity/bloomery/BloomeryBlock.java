@@ -1,15 +1,18 @@
 package lol.koblizek.stellarvoyage.block.entity.bloomery;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.world.BlockView;
 import org.jetbrains.annotations.Nullable;
 
 public class BloomeryBlock extends BlockWithEntity {
+    public static final DirectionProperty FACING = Properties.FACING;
 
 
     public BloomeryBlock(Settings settings) {
@@ -27,8 +30,20 @@ public class BloomeryBlock extends BlockWithEntity {
         return new BloomeryBlockEntity(pos, state);
     }
 
+    @Override
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        builder.add(FACING);
+    }
 
-
+    @Override
+    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        return switch (state.get(FACING)) {
+            case NORTH -> Block.createCuboidShape(0, 0, 0, 32, 48, 32);
+            case SOUTH -> Block.createCuboidShape(-16, 0, 0, 16, 16, 16);
+            case WEST -> Block.createCuboidShape(0, 0, -16, 16, 16, 16);
+            default -> Block.createCuboidShape(0, 0, 0, 16, 16, 32);
+        };
+    }
 
     @Override
     public BlockRenderType getRenderType(BlockState state) {
