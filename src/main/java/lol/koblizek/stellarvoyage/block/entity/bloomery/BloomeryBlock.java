@@ -8,6 +8,7 @@ import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.state.StateManager;
@@ -27,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class BloomeryBlock extends BlockWithEntity implements BlockEntityProvider {
     public static final Property<Boolean> INVISIBLE = BooleanProperty.of("invisible");
-    public static final DirectionProperty FACING = Properties.FACING;
+    public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
 
 
     public BloomeryBlock(Settings settings) {
@@ -35,6 +36,11 @@ public class BloomeryBlock extends BlockWithEntity implements BlockEntityProvide
         setDefaultState(getDefaultState().with(INVISIBLE, false));
     }
 
+    @Override
+    public BlockState getPlacementState(ItemPlacementContext context) {
+        return this.getDefaultState().with(FACING,
+                context.getHorizontalPlayerFacing().rotateYClockwise().rotateYClockwise());
+    }
     @Override
     protected MapCodec<? extends BlockWithEntity> getCodec() {
         return null;
