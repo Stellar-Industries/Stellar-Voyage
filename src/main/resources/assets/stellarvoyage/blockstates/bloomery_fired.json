@@ -1,7 +1,29 @@
 {
   "variants": {
-    "": {
-      "model": "stellarvoyage:block/bloomery_fired"
-    }
+    "facing=east,invisible=false": {
+      "model": "stellarvoyage:block/bloomery_fired",
+      "y": 0   },
+    "facing=west,invisible=false": {
+      "model": "stellarvoyage:block/bloomery_fired",
+      "y": 180},
+    "facing=north,invisible=false": {
+      "model": "stellarvoyage:block/bloomery_fired",
+      "y": 270},
+    "facing=south,invisible=false": {
+      "model": "stellarvoyage:block/bloomery_fired",
+      "y": 90 },
+    "facing=east,invisible=true": {
+      "model": "stellarvoyage:block/bloomery_unfired",
+      "y": 0   },
+    "facing=west,invisible=true": {
+      "model": "stellarvoyage:block/bloomery_unfired",
+      "y": 180},
+    "facing=north,invisible=true": {
+      "model": "stellarvoyage:block/bloomery_unfired",
+      "y": 270},
+    "facing=south,invisible=true": {
+      "model": "stellarvoyage:block/bloomery_unfired",
+      "y": 90 }
   }
 }
+
