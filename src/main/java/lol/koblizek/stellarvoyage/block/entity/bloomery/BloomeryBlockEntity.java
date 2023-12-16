@@ -1,21 +1,22 @@
-package lol.koblizek.stellarvoyage.block.tileentity.bloomery;
+package lol.koblizek.stellarvoyage.block.entity.bloomery;
 
-import lol.koblizek.stellarvoyage.block.tileentity.ModTileEntities;
+import lol.koblizek.stellarvoyage.block.ModBlockEntities;
+import lol.koblizek.stellarvoyage.block.ModBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.math.BlockPos;
-import software.bernie.example.registry.BlockEntityRegistry;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.util.GeckoLibUtil;
+import software.bernie.geckolib.util.RenderUtils;
 
-public class BloomeryTileEntityGeoBlock extends BlockEntity implements GeoBlockEntity {
+public class BloomeryBlockEntity extends BlockEntity implements GeoBlockEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
-    public BloomeryTileEntityGeoBlock(BlockPos pos, BlockState state) {
-        super(ModTileEntities.BLOOMERY_ENTITY_BLOCK, pos, state);
+    public BloomeryBlockEntity(BlockPos pos, BlockState state) {
+        super(ModBlockEntities.BLOOMERY, pos, state);
     }
 
     @Override
@@ -23,9 +24,14 @@ public class BloomeryTileEntityGeoBlock extends BlockEntity implements GeoBlockE
 
     }
 
-
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return this.cache;
+        return cache;
+    }
+
+
+    @Override
+    public double getTick(Object blockEntity) {
+        return RenderUtils.getCurrentTick();
     }
 }
