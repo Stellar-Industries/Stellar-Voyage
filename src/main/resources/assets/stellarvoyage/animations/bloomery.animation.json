@@ -21,7 +21,7 @@
 				}
 			}
 		},
-		"Burn": {
+		"burn": {
 			"loop": true,
 			"animation_length": 75.91667,
 			"bones": {
@@ -37,13 +37,8 @@
 			"particle_effects": {
 				"0.0": {
 					"effect": "burning"
-				}
-			}
-		},
-		"Smoke": {
-			"loop": true,
-			"particle_effects": {
-				"0.0": {
+				},
+				"0.0417": {
 					"effect": "smoke"
 				}
 			}
