@@ -2,6 +2,7 @@ package lol.koblizek.stellarvoyage.block.entity.bloomery;
 
 import com.mojang.serialization.MapCodec;
 import lol.koblizek.stellarvoyage.block.ModBlockEntities;
+import lol.koblizek.stellarvoyage.block.entity.Multiblock;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -24,13 +25,14 @@ import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
 public class BloomeryBlock extends BlockWithEntity implements BlockEntityProvider {
-    public static final Property<Boolean> INVISIBLE = BooleanProperty.of("invisible");
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
-
+    static BooleanProperty INVISIBLE = Multiblock.INVISIBLE;
+    static BooleanProperty ISMASTER = Multiblock.ISMASTER;
 
     public BloomeryBlock(Settings settings) {
         super(settings);
         setDefaultState(getDefaultState().with(INVISIBLE, false));
+        setDefaultState(getDefaultState().with(ISMASTER, true));
     }
 
     @Override
@@ -50,6 +52,7 @@ public class BloomeryBlock extends BlockWithEntity implements BlockEntityProvide
             return new BloomeryBlockEntity(pos, state);
         } else
         {
+
             return null;
         }
     }
@@ -59,6 +62,7 @@ public class BloomeryBlock extends BlockWithEntity implements BlockEntityProvide
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(FACING);
         builder.add(INVISIBLE);
+        builder.add(ISMASTER);
     }
 
 
@@ -101,51 +105,12 @@ public class BloomeryBlock extends BlockWithEntity implements BlockEntityProvide
         if(state.get(INVISIBLE).equals(false)) {
             Direction direction = state.get(FACING);
             System.out.println(direction);
-            switch (direction) {
-                case NORTH:
-                    world.setBlockState(pos.up(1), state.with(INVISIBLE, true));
-                    world.setBlockState(pos.south(1), state.with(INVISIBLE, true));
-                    world.setBlockState(pos.west(1), state.with(INVISIBLE, true));
-                    world.setBlockState(pos.west(1).south(1), state.with(INVISIBLE, true));
-                    world.setBlockState(pos.south(1).up(1), state.with(INVISIBLE, true));
-                    world.setBlockState(pos.west(1).up(1), state.with(INVISIBLE, true));
-                    world.setBlockState(pos.west(1).south(1).up(1), state.with(INVISIBLE, true));
-                    break;
-                case SOUTH:
-                    world.setBlockState(pos.up(1), state.with(INVISIBLE, true));
-                    world.setBlockState(pos.north(1), state.with(INVISIBLE, true));
-                    world.setBlockState(pos.east(1), state.with(INVISIBLE, true));
-                    world.setBlockState(pos.east(1).north(1), state.with(INVISIBLE, true));
-                    world.setBlockState(pos.north(1).up(1), state.with(INVISIBLE, true));
-                    world.setBlockState(pos.east(1).up(1), state.with(INVISIBLE, true));
-                    world.setBlockState(pos.east(1).north(1).up(1), state.with(INVISIBLE, true));
-                    break;
-                case WEST:
-                    world.setBlockState(pos.up(1), state.with(INVISIBLE, true));
-                    world.setBlockState(pos.south(1), state.with(INVISIBLE, true));
-                    world.setBlockState(pos.east(1), state.with(INVISIBLE, true));
-                    world.setBlockState(pos.east(1).south(1), state.with(INVISIBLE, true));
-                    world.setBlockState(pos.south(1).up(1), state.with(INVISIBLE, true));
-                    world.setBlockState(pos.east(1).up(1), state.with(INVISIBLE, true));
-                    world.setBlockState(pos.east(1).south(1).up(1), state.with(INVISIBLE, true));
-                    break;
-                case EAST:
-                    world.setBlockState(pos.up(1), state.with(INVISIBLE, true));
-                    world.setBlockState(pos.north(1), state.with(INVISIBLE, true));
-                    world.setBlockState(pos.west(1), state.with(INVISIBLE, true));
-                    world.setBlockState(pos.west(1).north(1), state.with(INVISIBLE, true));
-                    world.setBlockState(pos.north(1).up(1), state.with(INVISIBLE, true));
-                    world.setBlockState(pos.west(1).up(1), state.with(INVISIBLE, true));
-                    world.setBlockState(pos.west(1).north(1).up(1), state.with(INVISIBLE, true));
-                    break;
-                default:
-                    break;
-
-            }
+            Multiblock.multiblock2x2(direction, world, pos, state);
         }
 
 
     }
+
 
     @Override
     public BlockRenderType getRenderType(BlockState state) {
