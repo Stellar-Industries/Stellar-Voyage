@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -26,15 +27,18 @@ import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.util.GeckoLibUtil;
 import software.bernie.geckolib.util.RenderUtils;
 
+import java.lang.reflect.Field;
+
 public class BloomeryBlockEntity extends BlockEntity implements GeoBlockEntity, ExtendedScreenHandlerFactory, ImplementedInventory {
 
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(5, ItemStack.EMPTY);
 
-    public static final int FUEL_SLOT = 0;
-    private static final int FLUX_SLOT = 1;
-    private static final int ORE_SLOT = 2;
-    private static final int SLAG_SLOT = 3;
-    private static final int OUTPUT_SLOT = 4;
+    public static final int FUEL_SLOT = 0; // Fuel 1
+    public static final int FUEL_SLOT_2 = 1;
+    public static final int[] ORE_SLOT = new int[] {2, 3};
+    public static final int FLUX_SLOT = 4;
+    public static final int SLAG_SLOT = 5; // Byproduct
+    private static final int OUTPUT_SLOT = 6;
 
     protected final PropertyDelegate propertyDelegate;
     private int progress;
@@ -124,12 +128,12 @@ public class BloomeryBlockEntity extends BlockEntity implements GeoBlockEntity, 
         if (world1.isClient) {
             return;
         }
-        if (isOutPotSlotEmptyOrRecievable()) {
+        if (isOutPotSlotEmptyOrReceivable()) {
             if(this.hasRecipe()) {
                 this.increaseCraftProgress();
                 markDirty(world1, pos, state1);
 
-                if (hasCraftingFinishewd()) {
+                if (hasCraftingFinished()) {
                     this.craftItem();
                     this.resetProgress();
                 }
@@ -143,12 +147,12 @@ public class BloomeryBlockEntity extends BlockEntity implements GeoBlockEntity, 
 
     private void craftItem() {
         this.removeStack(FUEL_SLOT,1);
-        ItemStack itemStack = new ItemStack(Items.IRON_INGOT);
+        ItemStack itemStack = BloomeryRecipe.getOutputIfCan(getOres(), getStack(FLUX_SLOT));
 
         this.setStack(OUTPUT_SLOT, new ItemStack(itemStack.getItem(), getStack(OUTPUT_SLOT).getCount() + itemStack.getCount()));
     }
 
-    private boolean hasCraftingFinishewd() {
+    private boolean hasCraftingFinished() {
         return progress >= maxProgress;
     }
 
@@ -160,22 +164,53 @@ public class BloomeryBlockEntity extends BlockEntity implements GeoBlockEntity, 
         this.progress = 0;
     }
 
+    public ItemStack getFuelStack() {
+        if (!getStack(FUEL_SLOT).isEmpty()) return getStack(FUEL_SLOT);
+        else if (!getStack(FUEL_SLOT_2).isEmpty()) return getStack(FUEL_SLOT_2);
+        else return ItemStack.EMPTY;
+    }
+
+    public ItemStack getOres() {
+        if (!getStack(ORE_SLOT[0]).isEmpty()) return getStack(ORE_SLOT[0]);
+        else if (!getStack(ORE_SLOT[1]).isEmpty()) return getStack(ORE_SLOT[1]);
+        else return ItemStack.EMPTY;
+    }
+
     private boolean hasRecipe() {
-        ItemStack result = new ItemStack(Items.IRON_INGOT);
-        boolean hasInput = getStack(FUEL_SLOT).getItem() == Items.COAL;
-        
-        return hasInput && canInsertAmountIntoOutputSlot(result) && canInstertItemIntoOutputSlot(result.getItem());
+        ItemStack result = BloomeryRecipe.getOutputIfCan(getOres(), getStack(FLUX_SLOT));
+        boolean hasFuel = getFuelStack().getItem() == Items.COAL;
+
+        return hasFuel && canInsertAmountIntoOutputSlot(result) && canInsertItemIntoOutputSlot(result.getItem());
     }
 
     private boolean canInsertAmountIntoOutputSlot(ItemStack itemStack) {
         return getStack(OUTPUT_SLOT).getCount() + itemStack.getCount() < getStack(OUTPUT_SLOT).getMaxCount();
     }
 
-    private boolean canInstertItemIntoOutputSlot(Item item) {
+    private boolean canInsertItemIntoOutputSlot(Item item) {
         return this.getStack(OUTPUT_SLOT).getItem() == item || getStack(OUTPUT_SLOT).isEmpty();
     }
 
-    private boolean isOutPotSlotEmptyOrRecievable() {
-        return this.getStack(OUTPUT_SLOT).isEmpty() || this.getStack(OUTPUT_SLOT).getCount() < this.getStack(OUTPUT_SLOT).getMaxCount();
+    private boolean isOutPotSlotEmptyOrReceivable() {
+        return (this.getStack(OUTPUT_SLOT).isEmpty()
+                || this.getStack(OUTPUT_SLOT).getCount() < this.getStack(OUTPUT_SLOT).getMaxCount())
+                && this.getStack(SLAG_SLOT).isEmpty() || this.getStack(SLAG_SLOT).getCount() < this.getStack(OUTPUT_SLOT).getMaxCount();
+    }
+
+    public record BloomeryRecipe(ItemStack out, Item ore, Item flux) {
+        public static final BloomeryRecipe IRON = new BloomeryRecipe(new ItemStack(Items.COPPER_INGOT), Items.COAL, null);
+
+        public boolean matchesRecipe(Item ore, Item flux) {
+            return ore.equals(this.ore) && (this.flux == null || this.flux.equals(flux));
+        }
+
+        public static ItemStack getOutputIfCan(ItemStack ore, ItemStack flux) {
+            try {
+                if (IRON.matchesRecipe(ore.getItem(), flux.getItem())) return IRON.out;
+            } catch (Exception e) {
+                return ItemStack.EMPTY;
+            }
+            return ItemStack.EMPTY;
+        }
     }
 }
