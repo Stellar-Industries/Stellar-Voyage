@@ -35,6 +35,7 @@ public class BloomeryScreen extends HandledScreen<BloomeryHandledScreen> impleme
         context.drawTexture(TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight);
     }
 
+
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         renderBackground(context, mouseX, mouseY, delta);
