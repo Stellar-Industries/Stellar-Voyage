@@ -33,11 +33,11 @@ public class BloomeryHandledScreen extends ScreenHandler {
         this.blockEntity = ((BloomeryBlockEntity) blockEntity);
 
         this.addSlot(new Slot(inventory, 0, 21, 61));
-        this.addSlot(new Slot(inventory, 1, 40, 61));
-        this.addSlot(new Slot(inventory, 2, 7, 15));
-        this.addSlot(new Slot(inventory, 3, 25, 15));
-        this.addSlot(new Slot(inventory, 4, 62, 15));
-        this.addSlot(new Slot(inventory, 6, 131, 15));
+        this.addSlot(new Slot(inventory, 1, 39, 61));
+        this.addSlot(new Slot(inventory, 2, 8, 16));
+        this.addSlot(new Slot(inventory, 3, 26, 16));
+        this.addSlot(new Slot(inventory, 4, 63, 16));
+        this.addSlot(new Slot(inventory, 6, 132, 16));
         this.addSlot(new Slot(inventory, 5, 132, 47));
 
 
