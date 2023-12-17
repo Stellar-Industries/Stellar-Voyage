@@ -193,9 +193,7 @@ public class BloomeryBlockEntity extends BlockEntity implements GeoBlockEntity, 
     }
 
     private boolean isOutPotSlotEmptyOrReceivable() {
-        return (this.getStack(OUTPUT_SLOT).isEmpty()
-                || this.getStack(OUTPUT_SLOT).getCount() < this.getStack(OUTPUT_SLOT).getMaxCount())
-                && this.getStack(SLAG_SLOT).isEmpty() || this.getStack(SLAG_SLOT).getCount() < this.getStack(OUTPUT_SLOT).getMaxCount();
+        return true;
     }
 
     public record BloomeryRecipe(ItemStack out, Item ore, Item flux) {
