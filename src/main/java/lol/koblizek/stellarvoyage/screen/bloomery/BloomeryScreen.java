@@ -33,6 +33,12 @@ public class BloomeryScreen extends HandledScreen<BloomeryHandledScreen> impleme
         int y = (height - backgroundHeight) / 2;
 
         context.drawTexture(TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight);
+        //vprave
+        context.drawTexture(TEXTURE, x + backgroundWidth / 2 - 47, y + backgroundHeight / 4 - 2, 176, 0, 14, 14);
+        //vlevo
+        context.drawTexture(TEXTURE, x + backgroundWidth / 2 - 66, y + backgroundHeight / 4 - 2, 176, 0, 14, 14);
+
+
     }
 
 

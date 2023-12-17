@@ -189,7 +189,6 @@ public class BloomeryBlockEntity extends BlockEntity implements GeoBlockEntity, 
     }
 
     private boolean hasRecipe() {
-        // System.out.println(getOres().getName());
         ItemStack result = BloomeryRecipe.getOutputIfCan(getOres(), getStack(FLUX_SLOT));
         if (result == ItemStack.EMPTY) return false;
         boolean hasFuel = getFuelStack().getItem() == Items.COAL;

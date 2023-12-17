@@ -24,7 +24,7 @@ public class ModBlocks implements References {
     public static final Block BLOOMERY = registerBlock("bloomery_fired",
         new BloomeryBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).nonOpaque()));
 
-    public static final Block BLOOMERY_UNFIRED = registerBlockWithCustomItem("bloomery_unfired","bloomery_fired",
+    public static final Block BLOOMERY_UNFIRED = registerBlock("bloomery_unfired",
             new BloomeryBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).nonOpaque()));
     public static final Block MUD_MIXTURE = registerBlock("mud_mixture",
             new MudMixtureBlock());
@@ -34,10 +34,6 @@ public class ModBlocks implements References {
         return Registry.register(Registries.BLOCK, new Identifier(MOD_ID, name), block);
     }
 
-    public static <B extends Block> B registerBlockWithCustomItem(String name, String itemName, B block) {
-        ModItems.ITEMS.add(registerBlockItem(name, block));
-        return Registry.register(Registries.BLOCK, new Identifier(MOD_ID, name), block);
-    }
 
     private static Item registerBlockItem(String name, Block block) {
         return Registry.register(Registries.ITEM, new Identifier(MOD_ID, name),
