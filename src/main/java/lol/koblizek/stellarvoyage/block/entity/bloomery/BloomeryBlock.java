@@ -12,10 +12,7 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.DirectionProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.state.property.Property;
+import net.minecraft.state.property.*;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
@@ -103,6 +100,7 @@ public class BloomeryBlock extends BlockWithEntity implements BlockEntityProvide
     public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
         if(state.get(INVISIBLE).equals(false)) {
             Direction direction = state.get(FACING);
+            System.out.println(direction);
             switch (direction) {
                 case NORTH:
                     world.setBlockState(pos.up(1), state.with(INVISIBLE, true));
@@ -112,6 +110,7 @@ public class BloomeryBlock extends BlockWithEntity implements BlockEntityProvide
                     world.setBlockState(pos.south(1).up(1), state.with(INVISIBLE, true));
                     world.setBlockState(pos.west(1).up(1), state.with(INVISIBLE, true));
                     world.setBlockState(pos.west(1).south(1).up(1), state.with(INVISIBLE, true));
+                    break;
                 case SOUTH:
                     world.setBlockState(pos.up(1), state.with(INVISIBLE, true));
                     world.setBlockState(pos.north(1), state.with(INVISIBLE, true));
@@ -120,6 +119,7 @@ public class BloomeryBlock extends BlockWithEntity implements BlockEntityProvide
                     world.setBlockState(pos.north(1).up(1), state.with(INVISIBLE, true));
                     world.setBlockState(pos.east(1).up(1), state.with(INVISIBLE, true));
                     world.setBlockState(pos.east(1).north(1).up(1), state.with(INVISIBLE, true));
+                    break;
                 case WEST:
                     world.setBlockState(pos.up(1), state.with(INVISIBLE, true));
                     world.setBlockState(pos.south(1), state.with(INVISIBLE, true));
@@ -128,6 +128,7 @@ public class BloomeryBlock extends BlockWithEntity implements BlockEntityProvide
                     world.setBlockState(pos.south(1).up(1), state.with(INVISIBLE, true));
                     world.setBlockState(pos.east(1).up(1), state.with(INVISIBLE, true));
                     world.setBlockState(pos.east(1).south(1).up(1), state.with(INVISIBLE, true));
+                    break;
                 case EAST:
                     world.setBlockState(pos.up(1), state.with(INVISIBLE, true));
                     world.setBlockState(pos.north(1), state.with(INVISIBLE, true));
@@ -136,14 +137,15 @@ public class BloomeryBlock extends BlockWithEntity implements BlockEntityProvide
                     world.setBlockState(pos.north(1).up(1), state.with(INVISIBLE, true));
                     world.setBlockState(pos.west(1).up(1), state.with(INVISIBLE, true));
                     world.setBlockState(pos.west(1).north(1).up(1), state.with(INVISIBLE, true));
+                    break;
                 default:
+                    break;
 
             }
-            super.onPlaced(world, pos, state, placer, itemStack);
         }
 
-    }
 
+    }
 
     @Override
     public BlockRenderType getRenderType(BlockState state) {

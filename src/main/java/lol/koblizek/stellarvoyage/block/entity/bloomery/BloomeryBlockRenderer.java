@@ -36,7 +36,12 @@ public class BloomeryBlockRenderer extends GeoBlockRenderer<BloomeryBlockEntity>
             protected void renderStackForBone(MatrixStack poseStack, GeoBone bone, ItemStack stack, BloomeryBlockEntity animatable, VertexConsumerProvider bufferSource, float partialTick, int packedLight, int packedOverlay) {
                 super.renderStackForBone(poseStack, bone, stack, animatable, bufferSource, partialTick, packedLight, packedOverlay);
             }
+
         });
     }
 
+    @Override
+    protected void rotateBlock(Direction facing, MatrixStack poseStack) {
+        super.rotateBlock(facing.rotateYCounterclockwise(), poseStack);
+    }
 }
