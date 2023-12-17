@@ -13,7 +13,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -27,8 +26,6 @@ import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.util.GeckoLibUtil;
 import software.bernie.geckolib.util.RenderUtils;
-
-import java.lang.reflect.Field;
 
 public class BloomeryBlockEntity extends BlockEntity implements GeoBlockEntity, ExtendedScreenHandlerFactory, ImplementedInventory {
 
@@ -129,8 +126,9 @@ public class BloomeryBlockEntity extends BlockEntity implements GeoBlockEntity, 
         if (world1.isClient) {
             return;
         }
-        if (isOutPotSlotEmptyOrReceivable()) {
+        if (isOutputAvailable()) {
             if(this.hasRecipe()) {
+                System.out.println(true);
                 this.increaseCraftProgress();
                 markDirty(world1, pos, state1);
 
@@ -147,7 +145,8 @@ public class BloomeryBlockEntity extends BlockEntity implements GeoBlockEntity, 
     }
 
     private void craftItem() {
-        this.removeStack(FUEL_SLOT,1);
+        this.removeStack(getEatingFuel(),1);
+        this.removeStack(getEatingOre(), 1);
         ItemStack itemStack = BloomeryRecipe.getOutputIfCan(getOres(), getStack(FLUX_SLOT));
 
         this.setStack(OUTPUT_SLOT, new ItemStack(itemStack.getItem(), getStack(OUTPUT_SLOT).getCount() + itemStack.getCount()));
@@ -171,14 +170,28 @@ public class BloomeryBlockEntity extends BlockEntity implements GeoBlockEntity, 
         else return ItemStack.EMPTY;
     }
 
+    public int getEatingFuel() {
+        if (!getStack(FUEL_SLOT).isEmpty()) return FUEL_SLOT;
+        else if (!getStack(FUEL_SLOT_2).isEmpty()) return FUEL_SLOT_2;
+        else return  0;
+    }
+
     public ItemStack getOres() {
         if (!getStack(ORE_SLOT[0]).isEmpty()) return getStack(ORE_SLOT[0]);
         else if (!getStack(ORE_SLOT[1]).isEmpty()) return getStack(ORE_SLOT[1]);
         else return ItemStack.EMPTY;
     }
 
+    public int getEatingOre() {
+        if (!getStack(ORE_SLOT[0]).isEmpty()) return ORE_SLOT[0];
+        else if (!getStack(ORE_SLOT[1]).isEmpty()) return ORE_SLOT[1];
+        else return 0;
+    }
+
     private boolean hasRecipe() {
+        // System.out.println(getOres().getName());
         ItemStack result = BloomeryRecipe.getOutputIfCan(getOres(), getStack(FLUX_SLOT));
+        if (result == ItemStack.EMPTY) return false;
         boolean hasFuel = getFuelStack().getItem() == Items.COAL;
 
         return hasFuel && canInsertAmountIntoOutputSlot(result) && canInsertItemIntoOutputSlot(result.getItem());
@@ -192,15 +205,17 @@ public class BloomeryBlockEntity extends BlockEntity implements GeoBlockEntity, 
         return this.getStack(OUTPUT_SLOT).getItem() == item || getStack(OUTPUT_SLOT).isEmpty();
     }
 
-    private boolean isOutPotSlotEmptyOrReceivable() {
-        return true;
+    private boolean isOutputAvailable() {
+        return (this.getStack(OUTPUT_SLOT).isEmpty()
+                || this.getStack(OUTPUT_SLOT).getCount() < this.getStack(OUTPUT_SLOT).getMaxCount())
+                && this.getStack(SLAG_SLOT).isEmpty() || this.getStack(SLAG_SLOT).getCount() < this.getStack(OUTPUT_SLOT).getMaxCount();
     }
 
     public record BloomeryRecipe(ItemStack out, Item ore, Item flux) {
-        public static final BloomeryRecipe IRON = new BloomeryRecipe(new ItemStack(Items.COPPER_INGOT), Items.COAL, null);
+        public static final BloomeryRecipe IRON = new BloomeryRecipe(new ItemStack(Items.COPPER_INGOT), Items.COAL, Items.AIR);
 
         public boolean matchesRecipe(Item ore, Item flux) {
-            return ore.equals(this.ore) && (this.flux == null || this.flux.equals(flux));
+            return ore.equals(this.ore) && (this.flux.equals(flux) || this.flux == null || this.flux == Items.AIR);
         }
 
         public static ItemStack getOutputIfCan(ItemStack ore, ItemStack flux) {
