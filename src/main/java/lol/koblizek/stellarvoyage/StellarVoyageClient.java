@@ -6,6 +6,8 @@ import lol.koblizek.stellarvoyage.block.ModBlocks;
 import lol.koblizek.stellarvoyage.block.entity.bloomery.BloomeryBlockRenderer;
 import lol.koblizek.stellarvoyage.item.ItemCallbacks;
 import lol.koblizek.stellarvoyage.item.ModItems;
+import lol.koblizek.stellarvoyage.screen.ModScreenHandlers;
+import lol.koblizek.stellarvoyage.screen.bloomery.BloomeryScreen;
 import lol.koblizek.stellarvoyage.util.References;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
@@ -14,6 +16,8 @@ import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.ingame.HandledScreen;
+import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.entity.player.PlayerEntity;
@@ -33,6 +37,7 @@ public class StellarVoyageClient implements ClientModInitializer, References {
 		ClientLifecycleEvents.CLIENT_STARTED.register(this::onClientStarted);
 		ClientPlayConnectionEvents.JOIN.register(this::onPlayReady);
 		BlockEntityRendererFactories.register(ModBlockEntities.BLOOMERY, BloomeryBlockRenderer::new);
+		HandledScreens.register(ModScreenHandlers.BLOOMERY_HANDLED_SCREEN_SCREEN_HANDLER_TYPE, BloomeryScreen::new);
 	}
 
 	public void onClientStarted(MinecraftClient client) {

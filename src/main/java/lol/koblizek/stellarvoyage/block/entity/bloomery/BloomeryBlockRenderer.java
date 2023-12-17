@@ -38,4 +38,5 @@ public class BloomeryBlockRenderer extends GeoBlockRenderer<BloomeryBlockEntity>
             }
         });
     }
+
 }

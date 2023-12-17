@@ -1,6 +1,7 @@
 package lol.koblizek.stellarvoyage.block.entity.bloomery;
 
 import lol.koblizek.stellarvoyage.block.ModBlockEntities;
+import lol.koblizek.stellarvoyage.screen.bloomery.BloomeryHandledScreen;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -31,7 +32,7 @@ import java.lang.reflect.Field;
 
 public class BloomeryBlockEntity extends BlockEntity implements GeoBlockEntity, ExtendedScreenHandlerFactory, ImplementedInventory {
 
-    private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(5, ItemStack.EMPTY);
+    private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(7, ItemStack.EMPTY);
 
     public static final int FUEL_SLOT = 0; // Fuel 1
     public static final int FUEL_SLOT_2 = 1;
@@ -116,7 +117,7 @@ public class BloomeryBlockEntity extends BlockEntity implements GeoBlockEntity, 
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return null;
+        return new BloomeryHandledScreen(syncId, playerInventory, this, propertyDelegate);
     }
 
     @Override
