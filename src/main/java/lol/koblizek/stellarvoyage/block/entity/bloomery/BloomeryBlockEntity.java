@@ -5,6 +5,7 @@ import lol.koblizek.stellarvoyage.screen.bloomery.BloomeryHandledScreen;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.FurnaceBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
@@ -25,22 +26,24 @@ import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.util.GeckoLibUtil;
-import software.bernie.geckolib.util.RenderUtils;
+
+import java.util.List;
 
 public class BloomeryBlockEntity extends BlockEntity implements GeoBlockEntity, ExtendedScreenHandlerFactory, ImplementedInventory {
 
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(7, ItemStack.EMPTY);
 
-    public static final int FUEL_SLOT = 0; // Fuel 1
-    public static final int FUEL_SLOT_2 = 1;
+    public static final int[] FUEL_SLOT = {0, 1}; // Fuel 1
     public static final int[] ORE_SLOT = new int[] {2, 3};
     public static final int FLUX_SLOT = 4;
     public static final int SLAG_SLOT = 5; // Byproduct
     private static final int OUTPUT_SLOT = 6;
 
     protected final PropertyDelegate propertyDelegate;
-    private int progress;
-    private int maxProgress = 72;
+    private int fuelProgress;
+    private int maxFuelProgress = 72;
+    private int itemProgress; // TODO
+    private int maxItemProgress = 72;
 
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
@@ -51,17 +54,17 @@ public class BloomeryBlockEntity extends BlockEntity implements GeoBlockEntity, 
             @Override
             public int get(int index) {
                 return switch (index) {
-                    case 0 -> BloomeryBlockEntity.this.progress;
-                    case 1 -> BloomeryBlockEntity.this.maxProgress;
-                    default -> BloomeryBlockEntity.this.maxProgress;
+                    case 0 -> BloomeryBlockEntity.this.fuelProgress;
+                    case 1 -> BloomeryBlockEntity.this.maxFuelProgress;
+                    default -> BloomeryBlockEntity.this.maxFuelProgress;
                 };
             }
 
             @Override
             public void set(int index, int value) {
                 switch (index) {
-                    case 0 -> BloomeryBlockEntity.this.progress = value;
-                    case 1 -> BloomeryBlockEntity.this.maxProgress = value;
+                    case 0 -> BloomeryBlockEntity.this.fuelProgress = value;
+                    case 1 -> BloomeryBlockEntity.this.maxFuelProgress = value;
                 }
             }
 
@@ -83,11 +86,6 @@ public class BloomeryBlockEntity extends BlockEntity implements GeoBlockEntity, 
 
 
     @Override
-    public double getTick(Object blockEntity) {
-        return RenderUtils.getCurrentTick();
-    }
-
-    @Override
     public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
         buf.writeBlockPos(this.pos);
     }
@@ -101,14 +99,14 @@ public class BloomeryBlockEntity extends BlockEntity implements GeoBlockEntity, 
     protected void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
         Inventories.writeNbt(nbt, inventory);
-        nbt.putInt("bloomery.progress", progress);
+        nbt.putInt("bloomery.progress", fuelProgress);
     }
 
     @Override
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
         Inventories.readNbt(nbt, inventory);
-        progress = nbt.getInt("bloomery.proggress");
+        fuelProgress = nbt.getInt("bloomery.progress");
     }
 
     @Nullable
@@ -122,15 +120,14 @@ public class BloomeryBlockEntity extends BlockEntity implements GeoBlockEntity, 
         return inventory;
     }
 
-    public void tick(World world1, BlockPos pos, BlockState state1) {
-        if (world1.isClient) {
+    public void tick(World world, BlockPos pos, BlockState state) {
+        if (world.isClient) {
             return;
         }
         if (isOutputAvailable()) {
             if(this.hasRecipe()) {
-                System.out.println(true);
                 this.increaseCraftProgress();
-                markDirty(world1, pos, state1);
+                markDirty(world, pos, state);
 
                 if (hasCraftingFinished()) {
                     this.craftItem();
@@ -147,32 +144,32 @@ public class BloomeryBlockEntity extends BlockEntity implements GeoBlockEntity, 
     private void craftItem() {
         this.removeStack(getEatingFuel(),1);
         this.removeStack(getEatingOre(), 1);
-        ItemStack itemStack = BloomeryRecipe.getOutputIfCan(getOres(), getStack(FLUX_SLOT));
+        ItemStack itemStack = BloomeryRecipe.getOutputIfCan(getOres(), getStack(FLUX_SLOT), getFuelStack());
 
         this.setStack(OUTPUT_SLOT, new ItemStack(itemStack.getItem(), getStack(OUTPUT_SLOT).getCount() + itemStack.getCount()));
     }
 
     private boolean hasCraftingFinished() {
-        return progress >= maxProgress;
+        return fuelProgress >= maxFuelProgress;
     }
 
     private void increaseCraftProgress() {
-        progress++;
+        fuelProgress++;
     }
 
     private void resetProgress() {
-        this.progress = 0;
+        this.fuelProgress = 0;
     }
 
     public ItemStack getFuelStack() {
-        if (!getStack(FUEL_SLOT).isEmpty()) return getStack(FUEL_SLOT);
-        else if (!getStack(FUEL_SLOT_2).isEmpty()) return getStack(FUEL_SLOT_2);
+        if (!getStack(FUEL_SLOT[0]).isEmpty()) return getStack(FUEL_SLOT[0]);
+        else if (!getStack(FUEL_SLOT[1]).isEmpty()) return getStack(FUEL_SLOT[1]);
         else return ItemStack.EMPTY;
     }
 
     public int getEatingFuel() {
-        if (!getStack(FUEL_SLOT).isEmpty()) return FUEL_SLOT;
-        else if (!getStack(FUEL_SLOT_2).isEmpty()) return FUEL_SLOT_2;
+        if (!getStack(FUEL_SLOT[0]).isEmpty()) return FUEL_SLOT[0];
+        else if (!getStack(FUEL_SLOT[1]).isEmpty()) return FUEL_SLOT[1];
         else return  0;
     }
 
@@ -189,7 +186,7 @@ public class BloomeryBlockEntity extends BlockEntity implements GeoBlockEntity, 
     }
 
     private boolean hasRecipe() {
-        ItemStack result = BloomeryRecipe.getOutputIfCan(getOres(), getStack(FLUX_SLOT));
+        ItemStack result = BloomeryRecipe.getOutputIfCan(getOres(), getStack(FLUX_SLOT), getFuelStack());
         if (result == ItemStack.EMPTY) return false;
         boolean hasFuel = getFuelStack().getItem() == Items.COAL;
 
@@ -210,16 +207,27 @@ public class BloomeryBlockEntity extends BlockEntity implements GeoBlockEntity, 
                 && this.getStack(SLAG_SLOT).isEmpty() || this.getStack(SLAG_SLOT).getCount() < this.getStack(OUTPUT_SLOT).getMaxCount();
     }
 
-    public record BloomeryRecipe(ItemStack out, Item ore, Item flux) {
-        public static final BloomeryRecipe IRON = new BloomeryRecipe(new ItemStack(Items.COPPER_INGOT), Items.COAL, Items.AIR);
-
-        public boolean matchesRecipe(Item ore, Item flux) {
-            return ore.equals(this.ore) && (this.flux.equals(flux) || this.flux == null || this.flux == Items.AIR);
+    public record BloomeryRecipe(ItemStack out, ItemStack outSlag, Item ore, Item flux, Item specialFuel) {
+        public boolean matchesRecipe(Item ore, Item flux, Item specialFuel) {
+            return ore.equals(this.ore)
+                    && (this.flux.equals(flux) || this.flux == null || this.flux == Items.AIR)
+                    && (this.specialFuel.equals(specialFuel) || this.specialFuel == null || this.specialFuel == Items.AIR);
         }
 
-        public static ItemStack getOutputIfCan(ItemStack ore, ItemStack flux) {
+        public static List<BloomeryRecipe> getRecipes() {
+            return List.of(
+                    new BloomeryRecipe(new ItemStack(Items.COPPER_INGOT), ItemStack.EMPTY, Items.COAL, Items.AIR, Items.AIR)
+            );
+        }
+
+        public static ItemStack getOutputIfCan(ItemStack ore, ItemStack flux, ItemStack fuel) {
             try {
-                if (IRON.matchesRecipe(ore.getItem(), flux.getItem())) return IRON.out;
+                for (BloomeryRecipe recipe : getRecipes()) {
+                    if (recipe.matchesRecipe(ore.getItem(), flux.getItem(), fuel.getItem())) {
+                        return recipe.out;
+                    }
+                }
+                // if (IRON.matchesRecipe(ore.getItem(), flux.getItem(), fuel.getItem())) return IRON.out;
             } catch (Exception e) {
                 return ItemStack.EMPTY;
             }

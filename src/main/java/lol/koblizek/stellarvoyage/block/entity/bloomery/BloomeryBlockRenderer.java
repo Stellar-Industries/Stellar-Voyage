@@ -21,7 +21,7 @@ public class BloomeryBlockRenderer extends GeoBlockRenderer<BloomeryBlockEntity>
             @Override
             protected ItemStack getStackForBone(GeoBone bone, BloomeryBlockEntity animatable) {
                 return switch (bone.getName()) {
-                    case "ItemHolder" -> animatable.getStack(BloomeryBlockEntity.FUEL_SLOT);
+                    case "ItemHolder" -> animatable.getStack(BloomeryBlockEntity.FUEL_SLOT[0]);
                     default -> ItemStack.EMPTY;
                 };
             }
