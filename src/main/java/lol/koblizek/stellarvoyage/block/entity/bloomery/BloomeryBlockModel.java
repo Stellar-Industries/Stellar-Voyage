@@ -29,7 +29,6 @@ public class BloomeryBlockModel extends GeoModel<BloomeryBlockEntity> implements
 
     @Override
     public Identifier getTextureResource(BloomeryBlockEntity animatable) {
-
         return new Identifier(MOD_ID, "textures/block/bloomery_fired.png");
     }
 
