@@ -1,8 +1,10 @@
 package lol.koblizek.stellarvoyage.block.entity;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.PumpkinBlock;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.IntProperty;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -10,6 +12,7 @@ import net.minecraft.world.World;
 public class Multiblock {
     public static final BooleanProperty ISMASTER = BooleanProperty.of("ismaster");
     public static final BooleanProperty INVISIBLE = BooleanProperty.of("invisible");
+
     public static void setBlocks(World world, BlockPos pos, BlockState state) {
         world.setBlockState(pos, state.with(INVISIBLE, true).with(ISMASTER, false));
 

@@ -5,6 +5,7 @@ import lol.koblizek.stellarvoyage.block.entity.bloomery.BloomeryBlockEntity;
 import lol.koblizek.stellarvoyage.util.References;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.sound.Sound;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;

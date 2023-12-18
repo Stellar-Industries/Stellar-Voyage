@@ -41,12 +41,18 @@ public class BloomeryBlockEntity extends BlockEntity implements GeoBlockEntity, 
     protected final PropertyDelegate propertyDelegate;
     private int progress;
     private int maxProgress = 72;
+    private int X;
+    private int Y;
+    private int Z;
 
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     public BloomeryBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.BLOOMERY, pos, state);
+        this.X = pos.getX();
+        this.Y = pos.getY();
+        this.Z = pos.getZ();
         this.propertyDelegate = new PropertyDelegate() {
             @Override
             public int get(int index) {
@@ -71,6 +77,7 @@ public class BloomeryBlockEntity extends BlockEntity implements GeoBlockEntity, 
             }
         };
     }
+
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
@@ -97,10 +104,14 @@ public class BloomeryBlockEntity extends BlockEntity implements GeoBlockEntity, 
         return Text.translatable("block.stellarvoyage.bloomery.name");
     }
 
+
     @Override
     protected void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
         Inventories.writeNbt(nbt, inventory);
+        nbt.putInt("bloomery.X", this.X);
+        nbt.putInt("bloomery.Y", this.Y);
+        nbt.putInt("bloomery.Z", this.Z);
         nbt.putInt("bloomery.progress", progress);
     }
 

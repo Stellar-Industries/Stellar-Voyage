@@ -21,6 +21,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
@@ -48,13 +49,7 @@ public class BloomeryBlock extends BlockWithEntity implements BlockEntityProvide
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        if(state.get(INVISIBLE).equals(false)) {
-            return new BloomeryBlockEntity(pos, state);
-        } else
-        {
-
-            return null;
-        }
+        return new BloomeryBlockEntity(pos, state);
     }
 
 
@@ -104,13 +99,16 @@ public class BloomeryBlock extends BlockWithEntity implements BlockEntityProvide
     public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
         if(state.get(INVISIBLE).equals(false)) {
             Direction direction = state.get(FACING);
-            System.out.println(direction);
             Multiblock.multiblock2x2(direction, world, pos, state);
         }
 
 
     }
 
+    @Override
+    public void onBroken(WorldAccess world, BlockPos pos, BlockState state) {
+        super.onBroken(world, pos, state);
+    }
 
     @Override
     public BlockRenderType getRenderType(BlockState state) {

@@ -23,6 +23,21 @@ public class ModItems implements References {
     public static final Item PEBBLE_HOE = registerItem("pebble_hoe", new HoeItem(ToolMaterials.WOOD, 1, -2F, new Item.Settings()));
     public static final Item FLINT_KNIFE = registerItem("flint_knife", new SwordItem(ToolMaterials.WOOD, 4, -2F, new Item.Settings()));
     public static final Item GRASS_FIBER = registerItem("grass_fiber", new Item(new FabricItemSettings()));
+    public static final Item BRONZE_GEAR = registerItem("bronze_gear", new Item(new FabricItemSettings()));
+    public static final Item BRONZE_SWORD = registerItem("bronze_sword", new Item(new FabricItemSettings()));
+    public static final Item COPPER_COIL = registerItem("copper_coil", new Item(new FabricItemSettings()));
+    public static final Item COPPER_GEAR = registerItem("copper_gear", new Item(new FabricItemSettings()));
+    public static final Item DIAMOND_GEAR = registerItem("diamond_gear", new Item(new FabricItemSettings()));
+    public static final Item DRILL = registerItem("drill", new Item(new FabricItemSettings()));
+    public static final Item DOUGH = registerItem("dough", new Item(new FabricItemSettings()));
+    public static final Item GLASS_OF_BEER = registerItem("glass_of_beer", new Item(new FabricItemSettings()));
+    public static final Item GOLD_SCYTHE = registerItem("gold_scythe", new Item(new FabricItemSettings()));
+    public static final Item IRON_GEAR = registerItem("iron_gear", new Item(new FabricItemSettings()));
+    public static final Item IRON_SCYTHE = registerItem("iron_scythe", new Item(new FabricItemSettings()));
+    public static final Item SCIMITAR = registerItem("scimitar", new Item(new FabricItemSettings()));
+    public static final Item WEIRD_DOUGH = registerItem("weird_dough", new Item(new FabricItemSettings()));
+
+
 
     private static Item registerItem(String name, Item item) {
         ITEMS.add(item);
