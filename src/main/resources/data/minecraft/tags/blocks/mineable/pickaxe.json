@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-    "stellarvoyage:bauxite"
+    "stellarvoyage:bauxite",
+    "stellarvoyage:chalcopyrite",
+    "stellarvoyage:sphalerite",
+    "stellarvoyage:cassiterite"
   ]
 }

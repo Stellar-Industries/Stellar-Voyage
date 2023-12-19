@@ -24,9 +24,13 @@
   "item.stellarvoyage.bronze_sword": "Bronze Sword",
   "item.stellarvoyage.scimitar": "Scimitar",
   "item.stellarvoyage.weird_dough": "Weird Dough",
+  "item.stellarvoyage.cassiterite": "Cassiterite",
+  "item.stellarvoyage.chalcopyrite": "Chalcopyrite",
 
 
   "block.stellarvoyage.bauxite": "Bauxite",
+  "block.stellarvoyage.chalcopyrite": "Chalcopyrite",
+  "block.stellarvoyage.cassiterite": "Cassiterite",
   "block.stellarvoyage.limestone": "Limestone",
   "block.stellarvoyage.sphalerite": "Sphalerite",
   "block.stellarvoyage.mud_mixture": "Mud Mixture",

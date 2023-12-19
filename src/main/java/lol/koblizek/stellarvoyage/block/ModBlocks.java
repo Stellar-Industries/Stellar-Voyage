@@ -17,6 +17,11 @@ public class ModBlocks implements References {
 
     public static final Block BAUXITE_ORE = registerBlock("bauxite",
             new Block(FabricBlockSettings.copyOf(Blocks.IRON_ORE)));
+    public static final Block CASSITERITE_ORE = registerBlock("cassiterite",
+            new Block(FabricBlockSettings.copyOf(Blocks.IRON_ORE)));
+    public static final Block CHALCOPYRITE_ORE = registerBlock("chalcopyrite",
+            new Block(FabricBlockSettings.copyOf(Blocks.IRON_ORE)));
+
     public static final Block SPHALERITE_ORE = registerBlock("sphalerite",
             new Block(FabricBlockSettings.copyOf(Blocks.IRON_ORE)));
     public static final Block LIMESTONE = registerBlock("limestone",

@@ -3,6 +3,7 @@ package lol.koblizek.stellarvoyage.block.entity.bloomery;
 import com.mojang.serialization.MapCodec;
 import lol.koblizek.stellarvoyage.block.ModBlockEntities;
 import lol.koblizek.stellarvoyage.block.entity.Multiblock;
+import lol.koblizek.stellarvoyage.util.MasterProperty;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -20,6 +21,7 @@ import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
@@ -29,11 +31,13 @@ public class BloomeryBlock extends BlockWithEntity implements BlockEntityProvide
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
     static BooleanProperty INVISIBLE = Multiblock.INVISIBLE;
     static BooleanProperty ISMASTER = Multiblock.ISMASTER;
+    public static final MasterProperty MASTER_BLOCK = MasterProperty.of("master_block");
 
     public BloomeryBlock(Settings settings) {
         super(settings);
         setDefaultState(getDefaultState().with(INVISIBLE, false));
         setDefaultState(getDefaultState().with(ISMASTER, true));
+        setDefaultState(getDefaultState().with(MASTER_BLOCK, new Vec3i(0, 0,0)));
     }
 
     @Override
@@ -58,6 +62,7 @@ public class BloomeryBlock extends BlockWithEntity implements BlockEntityProvide
         builder.add(FACING);
         builder.add(INVISIBLE);
         builder.add(ISMASTER);
+        builder.add(MASTER_BLOCK);
     }
 
 
@@ -107,7 +112,12 @@ public class BloomeryBlock extends BlockWithEntity implements BlockEntityProvide
 
     @Override
     public void onBroken(WorldAccess world, BlockPos pos, BlockState state) {
-        super.onBroken(world, pos, state);
+        World world1 = (World) world;
+        int x = state.get(MASTER_BLOCK).getX();
+        int y = state.get(MASTER_BLOCK).getY();
+        int z = state.get(MASTER_BLOCK).getZ();
+        BlockPos pos1 = new BlockPos(x, y, z);
+        Multiblock.multiblock2x2delete(state.get(FACING),  world1, pos1, Blocks.AIR.getDefaultState());
     }
 
     @Override

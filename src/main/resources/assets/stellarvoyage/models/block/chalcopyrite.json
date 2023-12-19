@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "stellarvoyage:block/sphalerite"
+    "all": "stellarvoyage:block/chalcopyrite"
   }
 }
